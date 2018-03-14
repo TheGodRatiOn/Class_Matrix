@@ -28,7 +28,7 @@ class Matrix
 		void Transpose (void);
 		Matrix Dot(Matrix Obj1);
         friend ostream& operator << (ostream &output, const Matrix Obj1);
-        friend istream& operator >> (istream &input, const Matrix& Obj1);
+        friend istream& operator >> (istream &input, const Matrix &Obj1);
 };
 
 Matrix :: Matrix( int NumberOfLines, int NumberOfColumns)
@@ -95,20 +95,28 @@ int Matrix :: get_mColumns()
    return mColumns;
 }
 
-ostream& operator << (ostream& os, const Matrix Obj1)
+ostream& operator << (ostream &output, const Matrix Obj1)
 {
-    for (int i = 0; i < Obj1.nLines; i++){
-        os << endl;
+    for (int i = 0; i < Obj1.nLines; i++)
+	{
+        output << endl;
         for (int j = 0; j < Obj1.mColumns;j++)
+        {
+		
             os << Obj1.pMatrix[i][j] << " ";
+        }
     }
 }
 
-istream& operator >> (istream& is, const Matrix& Obj1)
+istream& operator >> (istream &input, const Matrix &Obj1)
 {
-    for(int i = 0; i < Obj1.nLines;i++)
-        for(int j = 0; j < Obj1.mColumns; j++)
-            is >> Obj1.pMatrix[i][j];
+    for (int i = 0; i < Obj1.nLines;i++)
+	{
+	    for (int j = 0; j < Obj1.mColumns; j++)
+	    {
+	    	input >> Obj1.pMatrix[i][j];
+		}
+	}
 }
 
 void Matrix :: Change_Value(int a, int b, int c)
