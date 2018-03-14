@@ -14,8 +14,8 @@ class Matrix
 		~Matrix ();
 		int get_nLines();
 		int get_mColumns();
-        Matrix(const Matrix &Obj1);
-        int get_Element(int a, int b);
+                Matrix(const Matrix &Obj1);
+                int get_Element(int a, int b);
 		void Change_Value(int a, int b, int c);
 		int& operator()(int a, int b);
 		Matrix operator=(Matrix Obj1);
@@ -35,9 +35,9 @@ Matrix :: Matrix( int NumberOfLines, int NumberOfColumns)
 {
     if ((NumberOfLines > 0) && (NumberOfColumns > 0))
     {
-		nLines = NumberOfLines;
-	    mColumns = NumberOfColumns;
-	    pMatrix = NULL;
+        nLines = NumberOfLines;
+        mColumns = NumberOfColumns;
+        pMatrix = NULL;
 
         pMatrix = new int*[nLines];
         for (int i = 0; i < nLines; i++)
@@ -62,7 +62,7 @@ Matrix :: ~Matrix()
 {
     for (int i = 0; i < this -> nLines; i++)
     {
-      delete this -> pMatrix[i];
+         delete this -> pMatrix[i];
     }
     delete this -> pMatrix;
     this -> pMatrix = NULL;
@@ -79,9 +79,9 @@ Matrix :: Matrix(const Matrix &Obj1)
     {
         pMatrix[i] = new int[nLines];
         for (int j = 0; j < mColumns; j++)
-		{
+	{
             pMatrix[i][j] = 0;
-		}
+	}
     }
 }
 
@@ -103,7 +103,7 @@ ostream& operator << (ostream &output, const Matrix Obj1)
         for (int j = 0; j < Obj1.mColumns;j++)
         {
 		
-            os << Obj1.pMatrix[i][j] << " ";
+            output << Obj1.pMatrix[i][j] << " ";
         }
     }
 }
@@ -131,13 +131,11 @@ int Matrix :: get_Element(int a, int b)
 
 Matrix operator+(Matrix Obj1, Matrix Obj2)
 {
-
-
 	if ((Obj1.get_nLines() == Obj2.get_nLines()) && (Obj1.get_mColumns() == Obj2.get_mColumns()))
 	{
 	    Matrix temp(Obj1.get_nLines(), Obj1.get_mColumns());
 
-     	int a = Obj1.get_nLines();
+     	    int a = Obj1.get_nLines();
 	    int b = Obj1.get_mColumns();
 
 		for (int i = 0; i < a; i++)
@@ -161,17 +159,17 @@ Matrix operator-(Matrix Obj1, Matrix Obj2)
 	{
 	    Matrix temp(Obj1.get_nLines(), Obj1.get_mColumns());
 
-     	int a = Obj1.get_nLines();
+     	    int a = Obj1.get_nLines();
 	    int b = Obj1.get_mColumns();
 
-		for (int i = 0; i < a; i++)
-		{
-			for (int j = 0; j < b; j++)
-			{
-				temp.Change_Value(i, j, Obj1.get_Element(i, j) - Obj2.get_Element(i, j));
-			}
-		}
-		return temp;
+	    for (int i = 0; i < a; i++)
+	    {
+		   for (int j = 0; j < b; j++)
+		   {
+			temp.Change_Value(i, j, Obj1.get_Element(i, j) - Obj2.get_Element(i, j));
+		   }
+	    }
+	    return temp;
 	}
 	else
 	{
@@ -187,7 +185,7 @@ Matrix operator+(Matrix Obj1, int k)
 		Matrix temp(Obj1.get_nLines(), Obj1.get_mColumns());
 
 		int a = Obj1.get_nLines();
-	    int b = Obj1.get_mColumns();
+	        int b = Obj1.get_mColumns();
 
 		for (int i = 0; i < a; i++)
 		{
@@ -211,7 +209,7 @@ Matrix operator-(Matrix Obj1, int k)
 
 		Matrix temp(Obj1.get_nLines(), Obj1.get_mColumns());
 		int a = Obj1.get_nLines();
-	    int b = Obj1.get_mColumns();
+	        int b = Obj1.get_mColumns();
 
 		for (int i = 0; i < a; i++)
 		{
@@ -235,7 +233,7 @@ Matrix operator*(Matrix Obj1, int k)
 
 		Matrix temp(Obj1.get_nLines(), Obj1.get_mColumns());
 		int a = Obj1.get_nLines();
-	    int b = Obj1.get_mColumns();
+	        int b = Obj1.get_mColumns();
 
 		for (int i = 0; i < a; i++)
 		{
@@ -259,7 +257,7 @@ Matrix operator*(Matrix Obj1, Matrix Obj2)
 	{
 	    Matrix temp(Obj1.get_nLines(), Obj1.get_mColumns());
 
-     	int a = Obj1.get_nLines();
+     	    int a = Obj1.get_nLines();
 	    int b = Obj1.get_mColumns();
 
 		for (int i = 0; i < a; i++)
@@ -283,8 +281,8 @@ Matrix Matrix :: operator+=(Matrix Obj1)
 	if ((Obj1.get_nLines() == this -> nLines) && (Obj1.get_mColumns() == this -> mColumns))
 	{
 	    Matrix temp(Obj1.get_nLines(), Obj1.get_mColumns());
-
-     	int a = Obj1.get_nLines();
+ 
+     	    int a = Obj1.get_nLines();
 	    int b = Obj1.get_mColumns();
 
 		for (int i = 0; i < a; i++)
@@ -408,7 +406,7 @@ Matrix Matrix :: operator=(Matrix Obj1)
     Matrix temp(Obj1.get_nLines(), Obj1.get_mColumns());
 
     int a = Obj1.get_nLines();
-	int b = Obj1.get_mColumns();
+    int b = Obj1.get_mColumns();
 
     for(int i = 0; i < a; i++)
     {
@@ -418,17 +416,17 @@ Matrix Matrix :: operator=(Matrix Obj1)
 		}
 	}
 
-	for(int i = 0; i < this-> nLines; i++)
+    for(int i = 0; i < this-> nLines; i++)
     {
-	    delete(this -> pMatrix[i]);
+	delete(this -> pMatrix[i]);
     }
     delete(this -> pMatrix);
 
-	this->nLines = Obj1.get_nLines();
+    this->nLines = Obj1.get_nLines();
     this->mColumns = Obj1.get_mColumns();
     this->pMatrix = temp.pMatrix;
 
-	return *this;
+    return *this;
 }
 
 Matrix Matrix :: Dot(Matrix Obj1)
@@ -455,7 +453,7 @@ Matrix Matrix :: Dot(Matrix Obj1)
 	}
 	else
 	{
-			throw "Wrong input for dot of Matrix";
+	        throw "Wrong input for dot of Matrix";
 	}
 }
 
