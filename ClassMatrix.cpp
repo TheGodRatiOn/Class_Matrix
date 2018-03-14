@@ -27,8 +27,8 @@ class Matrix
 		Matrix operator*=(int k);
 		void Transpose (void);
 		Matrix Dot(Matrix Obj1);
-        friend ostream& operator << (ostream &output, const Matrix Obj1);
-        friend istream& operator >> (istream &input, const Matrix &Obj1);
+                friend ostream& operator << (ostream &output, const Matrix Obj1);
+                friend istream& operator >> (istream &input, const Matrix &Obj1);
 };
 
 Matrix :: Matrix( int NumberOfLines, int NumberOfColumns)
