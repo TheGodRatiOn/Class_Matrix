@@ -70,9 +70,9 @@ Matrix :: ~Matrix()
 
 Matrix :: Matrix(const Matrix &Obj1)
 {
-	this -> nLines = Obj1.nLines;
-	this -> mColumns = Obj1.mColumns;
-	pMatrix = NULL;
+   this -> nLines = Obj1.nLines;
+   this -> mColumns = Obj1.mColumns;
+   pMatrix = NULL;
 
     pMatrix = new int*[nLines];
     for (int i = 0; i < nLines; i++)
@@ -98,7 +98,7 @@ int Matrix :: get_mColumns()
 ostream& operator << (ostream &output, const Matrix Obj1)
 {
     for (int i = 0; i < Obj1.nLines; i++)
-	{
+    {
         output << endl;
         for (int j = 0; j < Obj1.mColumns;j++)
         {
@@ -115,7 +115,7 @@ istream& operator >> (istream &input, const Matrix &Obj1)
 	    for (int j = 0; j < Obj1.mColumns; j++)
 	    {
 	    	input >> Obj1.pMatrix[i][j];
-		}
+	    }
 	}
 }
 
@@ -138,14 +138,14 @@ Matrix operator+(Matrix Obj1, Matrix Obj2)
      	    int a = Obj1.get_nLines();
 	    int b = Obj1.get_mColumns();
 
-		for (int i = 0; i < a; i++)
-		{
-			for (int j = 0; j < b; j++)
-			{
-				temp.Change_Value(i, j, Obj1.get_Element(i, j) + Obj2.get_Element(i, j));
-			}
-		}
-		return temp;
+	    for (int i = 0; i < a; i++)
+	    {
+		 for (int j = 0; j < b; j++)
+		 {
+		       temp.Change_Value(i, j, Obj1.get_Element(i, j) + Obj2.get_Element(i, j));
+		 }
+	     }
+	     return temp;
 	}
 	else
 	{
@@ -371,7 +371,7 @@ Matrix Matrix :: operator-=(int k)
 		{
 			for (int j = 0; j < this -> mColumns; j++)
 			{
-				this -> pMatrix[i][j] = this -> pMatrix[i][j] - k;
+			        this -> pMatrix[i][j] = this -> pMatrix[i][j] - k;
 			}
 		}
 		return *this;
@@ -386,14 +386,14 @@ Matrix Matrix :: operator*=(int k)
 {
 	if (this -> pMatrix != NULL )
 	{
-	    for (int i = 0; i < this -> nLines; i++)
-		{
-			for (int j = 0; j < this -> mColumns; j++)
-			{
-				this -> pMatrix[i][j] = this -> pMatrix[i][j] * k;
-			}
-		}
-		return *this;
+	       for (int i = 0; i < this -> nLines; i++)
+	       {
+		       for (int j = 0; j < this -> mColumns; j++)
+		       {
+		                 this -> pMatrix[i][j] = this -> pMatrix[i][j] * k;
+		       }
+	       }
+	       return *this;
 	}
 	else
 	{
@@ -467,10 +467,10 @@ void Matrix :: Transpose(void)
 		{
 			for (int j = 0; j < this -> mColumns; j++)
 			{
-				if (i == j)
-				{
-					break;
-				}
+			       if (i == j)
+			       {
+				      break;
+			       }
 
 				temp = this ->pMatrix[i][j];
 				this ->pMatrix[i][j] = pMatrix[j][i];
@@ -492,9 +492,9 @@ int& Matrix :: operator()(int a, int b)
 
 int main()
 {
-	Matrix M1(4, 3), M2(5, 4), M3(5, 3), M4(5, 4), M5(5, 4), M6(4, 4);
+    Matrix M1(4, 3), M2(5, 4), M3(5, 3), M4(5, 4), M5(5, 4), M6(4, 4);
 
-	ifstream fin("MatrixIn.txt");
+    ifstream fin("MatrixIn.txt");
     ofstream fout("MatrixOut.txt");
 
     fin >> M1;
