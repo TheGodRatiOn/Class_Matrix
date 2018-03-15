@@ -49,6 +49,12 @@ Matrix :: Matrix( int NumberOfLines, int NumberOfColumns)
             }
         }
     }
+    else
+    {
+	 nLines = 0;
+         mColumns = 0;
+         pMatrix = NULL;
+    }
 }
 
 Matrix :: Matrix()
