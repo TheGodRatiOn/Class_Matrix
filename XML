@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]) 
 {
     std::string FilePath;
-    std::string CityName, Buffer1, Buffer2, Buffer3;
+    char * CityName,* Buffer1,* Buffer2,* Buffer3;
     
     if (argc > 1) 
     {
@@ -60,15 +60,15 @@ int main(int argc, char* argv[])
 		     char * PointerToPosition;
 					
 		     PointerToPosition  = strstr(Buffer2, "value");
-		     Buffer3 = strncpy(PointerToPosition + 7, Buffer2, 6);
+		     strncpy(Buffer3 , PointerToPosition + 7, 6);
 		     std::cout << "Middle temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
 					
 		     PointerToPosition  = strstr(Buffer2, "min");
-		     Buffer3 = strncpy(PointerToPosition + 5, Buffer2, 6);
+		     strncpy(Buffer3 , PointerToPosition + 5, 6);
 		     std::cout << "Minimal temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
 					
 		     PointerToPosition  = strstr(Buffer2, "max");
-		     Buffer3 = strncpy(PointerToPosition + 5, Buffer2, 6);
+		     strncpy(Buffer3 , PointerToPosition + 5, 6);
 		     std::cout << "Maximal temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
 					
 		     flag--;
