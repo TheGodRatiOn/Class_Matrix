@@ -2,24 +2,24 @@
 #include <cstring>
 #include <libxml++-2.6/libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
-
-int main(int argc, char* argv[]) 
+ 
+int main(int argc, char* argv[])
 {
     std::string FilePath;
-    std::string CityName, Buffer1, Buffer2, Buffer3;
-    
-    if (argc > 1) 
+    std::string CityName, Buffer1, Buffer2, Buffer3, Buffer4;
+   
+    if (argc > 1)
     {
         FilePath = argv[1];
     }
     else
     {
-    	FilePath = "http://samples.openweathermap.org/data/2.5/weather?q=London&mode=xml&appid=b6907d289e10d714a6e88b30761fae22";
+        FilePath = "http://samples.openweathermap.org/data/2.5/weather?q=London&mode=xml&appid=b6907d289e10d714a6e88b30761fae22";
     }
-
+ 
     xmlpp::TextReader reader(FilePath);
-
-    if (argc > 2) 
+ 
+    if (argc > 2)
     {
         CityName = argv[2];
     }
@@ -28,63 +28,66 @@ int main(int argc, char* argv[])
         std::cout << "Enter city name" << std::endl;
         std::cin >> CityName;
     }
-    
+   
     int flag = 0;
-    
+   
     try
-    { 
-        while(reader.read()) 
+    {
+        while(reader.read())
         {
             int DepthOfReading = reader.get_depth();
-            
-            if (DepthOfReading == 1) 
-	    {
-	        if ((flag == 0) && (reader.has_value()) 
-		{
-		    Buffer1 = ((std::string)reader.get_name());
-				    
-		    const char * CheckPointer, * CopyStr1, * CopyStr2;
-				    
-		    CopyStr1 = Buffer1.c_str();
-				    
-		    CopyStr2 = CityName.c_str();
-                
-                    CheckPointer = strstr(CopyStr1, CopyStr2);
-                
-                    if (CheckPointer != NULL)
+           
+            if (DepthOfReading == 1)
+            {
+                if (flag == 0)
+                {
+                    reader.move_to_first_attribute();
+                   
+                    reader.move_to_next_attribute();
+                   
+                    Buffer1 = ((std::string)reader.get_value());
+               
+                    if (Buffer1 == CityName)
                     {
-	                flag = 2;
-		    }
-	        }
-			    
-		if ((flag == 1) && (reader.has_value())
-		{
-		    Buffer2 = ((std::string)reader.get_name());
-				
-		    Buffer3 = Buffer2.substr(19, 6);	
-		    std::cout << "Middle temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
-					
-		    Buffer3 = Buffer2.substr(32, 6);
-		    std::cout << "Minimal temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
-					
-		    Buffer3 = Buffer2.substr(46, 6);
-		    std::cout << "Maximal temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
-					
-		    flag--;
-		}
-				
-	        if ((flag == 2) && (reader.has_value())
-	        {
-	            flag--;
-	        }
-	    }
+                        flag = 2;
+                    }
+                }
+               
+                if ((flag == 1)
+                {
+                    reader.read();
+     
+                    reader.move_to_first_attribute();
+                    Buffer1 = ((std::string)reader.get_value());
+                   
+                    reader.move_to_next_attribute();
+                    Buffer2 = ((std::string)reader.get_value());
+                   
+                    reader.move_to_next_attribute();
+                    Buffer3 = ((std::string)reader.get_value());
+                   
+                    reader.move_to_next_attribute();
+                    Buffer4 = ((std::string)reader.get_value());
+                   
+                    std::cout << "Middle temperature for " << CityName << "is "<< Buffer1 << " " << Buffer4 << std::endl;
+                    std::cout << "Minimal temperature for " << CityName << "is "<< Buffer2 << " " << Buffer4 << std::endl;
+                    std::cout << "Maximal temperature for " << CityName << "is "<< Buffer3 << " " << Buffer4 << std::endl;
+                   
+                    flag--;
+                }
+               
+                if (flag == 2)
+                {
+                    flag--;
+                }
+            }
             else
             {
                 continue;
             }
         }
     }
-    
+   
     catch(const xmlpp::exception& ex)
     {
         std::cout << "libxml++ exception: " << ex.what() << std::endl;
