@@ -6,7 +6,7 @@
 int main(int argc, char* argv[]) 
 {
     std::string FilePath;
-    char * CityName,* Buffer1,* Buffer2,* Buffer3;
+    std::string CityName, Buffer1, Buffer2, Buffer3;
     
     if (argc > 1) 
     {
@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-    	FilePath = https:"www.cbr-xml-daily.ru/daily_eng.xml";
+    	FilePath = "http://samples.openweathermap.org/data/2.5/weather?q=London&mode=xml&appid=b6907d289e10d714a6e88b30761fae22";
     }
 
     xmlpp::TextReader reader(FilePath);
@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-        std::cout << "Input city name" << std::endl;
+        std::cout << "Enter city name" << std::endl;
         std::cin >> CityName;
     }
     
@@ -39,52 +39,52 @@ int main(int argc, char* argv[])
             
             if (DepthOfReading == 1) 
 	    {
-	        if (flag == 0)
+	        if ((flag == 0) && (reader.has_value()) 
 		{
 		    Buffer1 = ((std::string)reader.get_name());
+				    
+		    char * CheckPointer, * CopyStr1, * CopyStr2;
+				    
+		    CopyStr1 = Buffer1.c_str();
+				    
+		    CopyStr2 = CityName.c_str();
                 
-                    char * CheckPointer;
-                
-                    CheckPointer = strstr(Buffer1, CityName);
+                    CheckPointer = strstr(CopyStr1, CopyStr2);
                 
                     if (CheckPointer != NULL)
                     {
-                        flag = 2;
+	                flag = 2;
 		    }
-	         }
+	        }
 			    
-		 if (flag == 1)
-		 {
-		     Buffer2 = ((std::string)reader.get_name());
-					
-		     char * PointerToPosition;
-					
-		     PointerToPosition  = strstr(Buffer2, "value");
-		     strncpy(Buffer3 , PointerToPosition + 7, 6);
-		     std::cout << "Middle temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
-					
-		     PointerToPosition  = strstr(Buffer2, "min");
-		     strncpy(Buffer3 , PointerToPosition + 5, 6);
-		     std::cout << "Minimal temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
-					
-		     PointerToPosition  = strstr(Buffer2, "max");
-		     strncpy(Buffer3 , PointerToPosition + 5, 6);
-		     std::cout << "Maximal temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
-					
-		     flag--;
-		  }
+		if ((flag == 1) && (reader.has_value())
+		{
+		    Buffer2 = ((std::string)reader.get_name());
 				
-	   if (flag == 2)
-	   {
-	       flag--;
-	   }
-       }
-       else
-       {
-            continue;
+		    Buffer3 = Buffer2.substr(19, 6);	
+		    std::cout << "Middle temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
+					
+		    Buffer3 = Buffer2.substr(32, 6);
+		    std::cout << "Minimal temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
+					
+		    Buffer3 = Buffer2.substr(46, 6);
+		    std::cout << "Maximal temperature for " << CityName << "is "<< Buffer3 << " degrees" << std::endl;
+					
+		    flag--;
+		}
+				
+	        if ((flag == 2) && (reader.has_value())
+	        {
+	            flag--;
+	        }
+	    }
+            else
+            {
+                continue;
+            }
         }
     }
-
+    
     catch(const xmlpp::exception& ex)
     {
         std::cout << "libxml++ exception: " << ex.what() << std::endl;
