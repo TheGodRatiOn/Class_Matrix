@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 		{
 		    Buffer1 = ((std::string)reader.get_name());
 				    
-		    char * CheckPointer, * CopyStr1, * CopyStr2;
+		    const char * CheckPointer, * CopyStr1, * CopyStr2;
 				    
 		    CopyStr1 = Buffer1.c_str();
 				    
