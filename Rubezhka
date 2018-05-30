@@ -1,0 +1,172 @@
+// stack 
+// у - тель на 1 - й эл - т
+#include <iostream>
+#include <iterator>
+
+using namespace std;
+
+template<typename T>
+class MyIterator: public std::iterator<std::input_iterator_tag, T>
+{
+    friend class Stack;
+public:
+    MyIterator(const MyIterator &it);
+    MyIterator(T * p);
+    bool operator!=(MyIterator const& other) const;
+    bool operator==(MyIterator const& other) const; 
+    typename MyIterator::reference operator*() const;
+    MyIterator& operator++();
+private:
+    T * p;
+};
+
+template<typename T>
+MyIterator<T>::MyIterator(T *p) :
+    p(p)
+{
+
+}
+
+template<typename T>
+MyIterator<T>::MyIterator(const MyIterator& it) :
+    p(it.p)
+{
+
+}
+
+template<typename T>
+bool MyIterator<T>::operator!=(MyIterator const& other) const
+{
+    return p != other.p;
+}
+
+template<typename T>
+bool MyIterator<T>::operator==(MyIterator const& other) const
+{
+    return p == other.p;
+}
+
+template<typename T>
+typename MyIterator<T>::reference MyIterator<T>::operator*() const
+{
+    return *p;
+}
+
+template<typename T>
+MyIterator<T> &MyIterator<T>::operator++()
+{
+    ++p;
+    return *this;
+}
+
+template <typename T>
+class Stack
+{
+private:
+    T *stackPtr;
+    int size; 
+    int top;
+public:
+    Stack( int s);
+    ~Stack(); 
+    bool push(const T);
+    bool pop(); 
+    
+    typedef MyIterator<int> iterator;
+    typedef MyIterator<const int> const_iterator;
+    
+    iterator begin();
+    iterator end();
+    
+    const_iterator begin() const;
+    const_iterator end() const;
+};
+
+template <typename T>
+Stack<T>::Stack(int s)
+{
+    size = s > 0 ? s: 50;  
+    stackPtr = new T[size]; 
+    top = -1; 
+}
+ 
+template <typename T>
+Stack<T>::~Stack()
+{
+    delete [] stackPtr; 
+}
+ 
+template <typename T>
+bool Stack<T>::push(const T value)
+{
+    if (top == size - 1)
+    {
+    	throw "Stack overflow ";
+    	return false;
+    }
+ 
+    top++;
+    stackPtr[top] = value; 
+ 
+    return true; 
+}
+
+template <typename T>
+bool Stack<T>::pop()
+{
+    if (top == - 1)
+    {
+    	throw "Stack is empty";
+    	return false;
+	}
+ 
+    stackPtr[top] = 0; 
+    top--;
+ 
+    return true; 
+}
+
+
+Stack::iterator Stack::begin()
+{
+    return iterator(stackPtr);
+}
+
+Stack::iterator Stack::end()
+{
+    return iterator(stackPtr + size);
+}
+
+
+Stack::const_iterator Stack::begin() const
+{
+    return const_iterator(stackPtr);
+}
+
+Stack::const_iterator Stack::end() const
+{
+    return const_iterator(stackPtr + size);
+}
+
+int main()
+{
+     
+    int n;
+     
+    cin >> n;
+     
+    Stack<int> stack(n);
+    
+    for (int i = 0; i < n/2; i++)
+    {
+    	Stack.push(2 * i % n);
+    }
+    
+    for ( Stack::iterator it; = Stack.begin(); it != Stack.end(); ++it)
+    {
+        cout << *it << endl;
+	}
+    
+    
+    return 0;
+}
