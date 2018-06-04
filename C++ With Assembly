@@ -25,21 +25,21 @@ int main()
 
 		ArrayLoop :
 		cmp edx, 0
-			jng IncCounter
+		    jng IncCounter
 
-			dec edx
-			mov eax, [ebx]
-			neg eax
-			mov[ebx], eax
+		    dec edx
+		    mov eax, [ebx]
+		    neg eax
+		    mov[ebx], eax
 
-			IncCounter :
-		          cmp[ebx], 0
-			  jnl lp
-			  inc Counter
-			  lp :
+		    IncCounter :
+		        cmp[ebx], 0
+			jnl lp
+			inc Counter
+			lp :
 
-		  add ebx, type int
-	       loop ArrayLoop
+		    add ebx, type int
+	        loop ArrayLoop
 	}
 	
 	for (int i = 0; i < 10; i++)
