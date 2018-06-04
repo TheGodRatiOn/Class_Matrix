@@ -30,10 +30,10 @@ int main()
 		    dec edx
 		    mov eax, [ebx]
 		    neg eax
-		    mov[ebx], eax
+		    mov [ebx], eax
 
 		    IncCounter :
-		        cmp[ebx], 0
+		        cmp [ebx], 0
 			jnl lp
 			inc Counter
 			lp :
