@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
@@ -8,43 +8,56 @@ int main()
 	int n;
 	cin >> n;
 
+	if (n > 10)
+	{
+		throw "Wrong input";
+		return 0;
+	}
+
 	int * PoiterToArray = new int[10];
 	int Counter = 0;
 
 	for (int i = 0; i < 10; i++)
 	{
-		PoiterToArray[i] = (i + 2) * ((n % 3) + 4) % 500 * -1 * (i + 2 - n);
+		cin >> PoiterToArray[i];
 	}
 
-        __asm
+
+	__asm
 	{
 		mov ebx, PoiterToArray
-		mov ecx, 10
+		mov ecx, n
 		mov edx, n
 
 		ArrayLoop :
-		cmp edx, 0
-		    jng IncCounter
-
-		    dec edx
-		    mov eax, [ebx]
-		    neg eax
-		    mov [ebx], eax
-
-		    IncCounter :
-		        cmp [ebx], 0
-			jnl lp
-			inc Counter
-			lp :
-
-		    add ebx, type int
+			dec edx
+			mov eax, [ebx]
+			neg eax
+			mov[ebx], eax
+			
+			add ebx, type int
 	        loop ArrayLoop
+
+		mov ecx, 10;
+		mov ebx, PoiterToArray;
+
+	        ArrayLoop2 :
+		        mov eax, [ebx]
+                        cmp eax, 0
+	                      jnle ToEnd
+	                      inc Counter
+
+	                ToEnd:
+		        add ebx, type int
+	        loop ArrayLoop2
 	}
-	
+
 	for (int i = 0; i < 10; i++)
 	{
 		cout << PoiterToArray[i] << " ";
 	}
+
+	cout << endl;
 
 	cout << Counter << endl;
 
