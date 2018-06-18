@@ -15,31 +15,31 @@ struct Node
 	Node() : value(T()), left_child(nullptr), right_child(nullptr), parent(nullptr) {};
 
     ~Node() 
-	  {
+	{
         delete left_child;
         delete right_child;
     }
 
     Node(const Node<T> &node) : value(node.value) 
-	  {
+	{
         if (node.left_child != nullptr) 
-		    { 
+		{
             left_child = new Node<T>(*node.left_child);
             left_child->parent = this;
         }
         else
         {
-        	  right_child = nullptr;
-		    }
+        	right_child = nullptr;
+		}
         if (node.right_child != nullptr) 
-		    {
+		{
             right_child = new Node<T>(*node.right_child);
             right_child->parent = this;
         }
         else
         {
-        	  right_child = nullptr;
-		    }
+        	right_child = nullptr;
+		}
     }
 
     Node& operator=(const Node<T> &node) 
@@ -66,16 +66,16 @@ private:
     }
 
     Node<T>* search_method(const T& this_value) 
-	  {
+	{
         Node<T> *current_node = root;
         while ((current_node != nullptr) && (this_value != current_node->value))
-		    {
+		{
             if (this_value < current_node->value) 
-			      {
+			{
                 current_node = current_node->left_child;
             }
             else 
-			      {
+			{
                 current_node = current_node->right_child;
             }
         }
@@ -89,50 +89,50 @@ public:
         friend class BST<typename_1>;
 	public:
         Iterator(Node<T> *node) 
-		    {
+		{
             BSTit = node;
         }
 		
-		    bool operator == (Iterator& it) 
-		    {
+		bool operator == (Iterator& it) 
+		{
             if (it.BSTit == BSTit) 
-			      {
+			{
                 return true;
             }
             else 
-			      {
+			{
                 return false;
             }
         }
 
         bool operator != (Iterator& it) 
-		    {
+		{
             return !(*this == it);
         }
 
         typename Iterator::reference operator*() const 
-		    {
+		{
             return *BSTit;
         }
         
         Iterator& operator ++() 
-		    {
+		{
             if (BSTit->right_child == nullptr)
-			      {
+			{
                 Node<T> *pntr;
                 pntr = BSTit->parent;
                 while (pntr != nullptr && pntr->right_child == BSTit) 
-				        {
+				{
                     BSTit = pntr;
                     pntr = pntr->parent;
                 }
                 BSTit = pntr;
             }
             else 
-			      {
+			{
                 BSTit = BSTit->right_child;
                 while (it->left_child != nullptr) 
-				        {
+				{
                     BSTit = it->left_child;
                 }
             }
@@ -140,23 +140,23 @@ public:
         }
 
         Iterator& operator --() 
-		    {
+		{
             if (BSTit->left_child == nullptr) 
-			      {
+			{
                 Node<T> *pntr;
                 pntr = BSTit->parent;
                 while (p != nullptr && pntr->left_child == BSTit)
-				         {
+				{
                     it = pntr;
                     pntr = pntr->parent;
                 }
                 BSTit = pntr;
             }
             else 
-			      {
+			{
                 BSTit = BSTit->left_child;
                 while (BSTit->right_child != nullptr) 
-				        {
+				{
                     BSTit = BSTit->right_child;
                 }
             }
@@ -170,23 +170,23 @@ public:
     typedef Iterator<T> const_iterator;
 
     BST() : root(new Node<T>), tree_size(0) 
-	  {
+	{
         root->value = T();
     };
 
     ~BST() 
-	  {
+	{
         delete root;
     };
 
     BST(const BST &pBST) 
-	  {
+	{
         tree_size = pBST.tree_size;
         root = new Node<T>(*pBST.root);
     };
 
     BST& operator = (const BST &pBST) 
-	  {
+	{
         tree_size = pBST.tree_size;
         root = new Node<T>(*pBST.root);
         return *this;
@@ -194,58 +194,58 @@ public:
 
     template <class InputIt>
     void assign(InputIt firstit, InputIt lastit) 
-	  {
+	{
         while (firstit != lastit) 
-		    {
+		{
             insert(*firstit);
             firstit++;
         }
     }
 
     Node<T>* beg() 
-	  {
+	{
         Node<T> *begn = root;
         while (begn->leftChild != nullptr) 
-		    {
+		{
             begn = begn->leftChild;
         }
         return begn;
     }
 
     Node<T>* en()
-	  {
+	{
         Node<T> *enn = root;
         while (enn->rightChild != nullptr) 
-		    {
+		{
             enn = enn->rightChild;
         }
         return enn;
     }
 
     iterator begin() 
-	  {
+	{
         return iterator(beg());
     }
 
     const_iterator cbegin() 
-	  {
+	{
         return const_iterator(beg());
     }
 
     iterator end() 
-	  {
+	{
         return iterator(en());
     }
 
     const_iterator cend() 
-	  {
+	{
         return const_iterator(en());
     }
 
     iterator insert(const T& this_value) 
-	  {
+	{
         if (check_exists(this_value)) 
-		    {
+		{
             return find(this_value);
         }
         
@@ -259,105 +259,106 @@ public:
         {
             buffer_node->parent = current_position;
             if (!(buffer_node->value < current_position->value)) 
-			      {
+			{
                 current_position = current_position->right_child;
             }
             else 
-			      {
+			{
                 current_position = current_position->left_child;
             }
         }
         
         if (buffer_node->parent == nullptr) 
-		    {
+		{
             root = buffer_node;
         }
         else if (buffer_node->value < buffer_node->parent->value) 
-		    {
+		{
             buffer_node->parent->left_child = buffer_node;
         }
         else 
-		    {
+		{
             buffer_node->parent->right_child = buffer_node;
         }
         return iterator(buffer_node);
     }
 
     void remove(const T& this_value) 
-	  {
+	{
         Node<T>* node_to_delete = &*find(val);
 
         if (node_to_delete == nullptr)
         {
         	return;
-		    }
+		}
 		
-		   Node<T> *first_buffer, *second_buffer;
+		Node<T> *first_buffer, *second_buffer;
 
         if (node_to_delete->left_child == nullptr || node_to_delete->right_child == nullptr)
         {
         	first_buffer = node_to_delete;
-		    }
+		}
         else
         {
         	first_buffer = &*(++find(this_value));
-		    }
-        
+		}
+            
+
         if (first_buffer->left_child != nullptr)
         {
         	second_buffer = first_buffer->left_child;
-		    }
+		}
         else
         {
         	second_buffer = first_buffer->right_child;
-		    }
+		}
             
 
         if (second_buffer != nullptr)
         {
         	second_buffer->parent = first_buffer->parent;
-		    }
+		}
            
         if (first_buffer->parent == nullptr)
         {
         	root = second_buffer;
-		    }
+		}
         else if (first_buffer == first_buffer->parent->left_child)
         {
         	buff1->parent->left_child = buff2;
-		    }
+		}
         else
         {
         	buff1->parent->left_child = buff2;
-		    }
+		}
             
 
         if (first_buffer != node_to_delete)
         {
         	node_to_delete->value = buff1->value;
-		    }
+		}
             
         s--;
         delete first_buffer;
     }
 
     iterator find(const T& this_value) 
-	  {
+	{
         return iterator(search_method(this_value));
     }
 
     const_iterator cfind(const T& this_value) 
-	  {
+	{
         return const_iterator(search_method(this_value));
     }
 
     bool empty() const 
-	  {
+	{
         return tree_size == 0;
     };
 
     size_t size() const 
-	  {
+	{
         return tree_size;
     };
 };
@@ -370,7 +371,7 @@ int main()
 
     test_BST1.insert(49);
     test_BST1.insert(24);
-	  test_BST1.insert(26);
+	test_BST1.insert(26);
     test_BST1.insert(10);
     test_BST1.insert(74);
     test_BST1.remove(10);
